@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+     <link rel="stylesheet" href="{{ url_for('static', filename='aboutus.css') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+   
+    <script type="text/javascript">
+        // JavaScript function for logout confirmation
+        function confirmLogout(event) {
+            event.preventDefault();  // Prevent the default logout action
+
+            // Show confirmation alert
+            if (confirm("Are you sure you want to log out?")) {
+                window.location.href = "logout.html";  // If confirmed, redirect to logout.html
+            }
+        }
+    </script>
+    <title>Prevention tips</title>
+    
+</head>
+<body>
+    <section id="header">
+        <a href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" width="90" height="80"></a>
+        <div id="menu-icon" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+        <div>
+            <ul id="navbar">
+                <li><a class="active"  href="{{ url_for('homepage') }}">Home</a></li>
+                <li><a href="{{ url_for('chat') }}">Start Health Check</a></li>
+                <li><a href="{{ url_for('health_logs') }}">Logs</a></li>
+                <li><a href="{{ url_for('about_us') }}">About Us</a></li>           
+                <li><a href="profile.html"><i class="fa fa-user"></i></a></li>
+     
+            </ul>
+        </div>
+       
+    </section>
+
+    <div class="section">
+        <div class="container">
+        <div class="title">
+                <h1>Symptoms</h1>
+            </div>
+       <div class="content">
+                <div class="article">
+                    <h3>{{ settings.symptoms_title }}</h3>
+                    <p>{{ settings.symptoms_text }}</p>
+                </div>
+            </div>
+            
+            <div class="image-s">
+                <img src="{{ url_for('static', filename='img/' + settings.symptoms_image) }}" alt="Symptoms Image" class="img-fluid rounded">
+            </div>
+            
+            <div class="social">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="section-p">
+        <div class="col">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" width="90" height="80">
+            <h4>Contact</h4>
+            <p><strong>Phone:</strong> +961 71 456 890</p>
+            <p><strong>Location:</strong> Tyre, Lebanon</p>
+        </div>
+
+        <div class="col">
+            <h4>About</h4>
+            <a href="aboutus.html">About Us</a>
+            <a href="#">Terms & Conditions</a>
+            <a href="#">Privacy Policy</a>
+        </div>
+
+       <div class="col">
+            <h4>AI Healthcare</h4>
+      <a href="/diagnosis">Diabetes Diagnosis</a>
+       <a href="/how-it-works">How It Works</a>
+     <a href="/features">Key Features</a>
+        <a href="/research">Our Research</a>
+    
+        </div>
+
+        <div class="col" id="follow">
+            <h4>Follow Us</h4>
+            <div class="icon">
+                <i class="fab fa-facebook-f"></i>
+                <i class="fab fa-twitter"></i>
+                <i class="fab fa-instagram"></i>
+                <i class="fab fa-youtube"></i>
+            </div>
+        </div>
+
+        <div class="copyw">
+            <p>&copy; 2025, DiabetesForecaster, Tyre Lebanon</p>
+        </div>
+    </footer>
+   <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

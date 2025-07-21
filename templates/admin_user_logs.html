@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ user[0] }}'s Health Logs</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+   <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+    }
+#header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #2c3e50;
+        padding: 15px 50px;
+    }
+
+    #navbar {
+        display: flex;
+        gap: 20px;
+        list-style: none;
+    }
+
+    #navbar li a {
+        text-decoration: none;
+        color: white;
+        font-weight: bold;
+    }
+
+    .user-info {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .user-info h2 {
+        margin: 5px;
+        color: #088178;
+    }
+
+    /* Title */
+    h2 {
+      color: #088178;
+      text-align: center;
+      margin: 40px 0 20px;
+      font-weight: 700;
+      font-size: 2.2rem;
+      letter-spacing: 0.05em;
+    }
+
+    /* Table styling */
+    table {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto 60px;
+      border-collapse: separate;
+      border-spacing: 0 12px;
+      background: transparent;
+      animation: fadeIn 0.8s ease forwards;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    thead tr {
+      background: #088178;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    thead th {
+      padding: 16px 20px;
+      border: none;
+    }
+
+    tbody tr {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 12px;
+      display: table-row;
+    }
+
+    tbody tr:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      background: #fefefe;
+    }
+
+    tbody td {
+      padding: 18px 20px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 15px;
+      border: none;
+    }
+
+    /* Badge styles */
+    .badge {
+      padding: 7px 16px;
+      border-radius: 25px;
+      font-size: 14px;
+      font-weight: 700;
+      color: black;
+      display: inline-block;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .green  { background-color: #088178; } /* No Diabetes */
+    .red    { background-color: #ff6f61; } /* Type 1 */
+    .orange { background-color: #ff8a50; } /* Type 2 - softer orange */
+    .blue   { background-color: #007b8a; } /* Type 3 */
+
+    /* No data message */
+    .no-data {
+      text-align: center;
+      color: #999;
+      font-size: 20px;
+      margin: 60px 0;
+      font-style: italic;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 768px) {
+      table, thead tr, tbody tr, th, td {
+        display: block;
+        width: 100%;
+      }
+
+      thead tr {
+        display: none;
+      }
+
+      tbody tr {
+        margin-bottom: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+        border-radius: 12px;
+        padding: 20px;
+        background: white;
+      }
+
+      tbody td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        font-size: 14px;
+      }
+
+      tbody td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 20px;
+        width: 45%;
+        padding-left: 15px;
+        font-weight: 600;
+        text-align: left;
+        color: #088178;
+        font-size: 14px;
+      }
+    }
+.charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.chart-wrapper {
+  flex: 1 1 300px;
+  max-width: 300px;
+  height: auto;
+}
+canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+
+.chart-box {
+  flex: 1 1 320px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  transition: box-shadow 0.3s ease;
+}
+
+.chart-box:hover {
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Hide table headers on small screens */
+@media (max-width: 768px) {
+  table thead {
+    display: none;
+  }
+
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+
+  tr {
+    margin-bottom: 1.2rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  td {
+    padding-left: 50%;
+    position: relative;
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #eee;
+    font-size: 1rem;
+  }
+
+  td:last-child {
+    border-bottom: 0;
+  }
+
+  /* Show labels before each data cell */
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+    color: #027373;
+    white-space: nowrap;
+    font-size: 0.9rem;
+  }
+
+  /* Style the badges for diabetes type */
+  .badge {
+    padding: 4px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+<section id="header">
+    <a href="#"><img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" width="90" height="80"></a>
+    <ul id="navbar">
+        <li><a class="active" href="{{ url_for('manage_user') }}">Manage User</a></li>
+        <li><a href="{{ url_for('analytics') }}">Analytics</a></li>
+        <li><a href="#">Settings</a></li>
+        <li><a href="{{ url_for('admin_profile') }}"><i class="fa fa-user"></i></a></li>
+    </ul>
+</section>
+
+<div class="user-info">
+    <h2>{{ user[0] }}</h2>
+    <p>{{ user[1] }}</p>
+</div>
+
+{% if logs %}
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Age</th>
+      <th>Blood Pressure</th>
+      <th>BMI</th>
+      <th>Glucose</th>
+      <th>Pregnancy</th>
+      <th>Insulin</th>
+      <th>Diabetes Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in logs %}
+    <tr>
+      <td data-label="Date">{{ log[0] }}</td>
+      <td data-label="Age">{{ log[1] }}</td>
+      <td data-label="Blood Pressure">{{ log[2] }}</td>
+      <td data-label="BMI">{{ log[3] }}</td>
+      <td data-label="Glucose">{{ log[4] }}</td>
+      <td data-label="Pregnancy">{{ log[6] }}</td>
+      <td data-label="Insulin">{{ log[5] }}</td>
+
+      <td data-label="Diabetes Type">
+        <span class="badge 
+          {% if log[7] == 'No Diabetes' %}green
+          {% elif log[7] == 'Type 1' %}red
+          {% elif log[7] == 'Type 2' %}orange
+          {% elif log[7] == 'Type 3' %}blue
+          {% endif %}">
+          {{ log[7] }}
+        </span>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p class="no-data">No health logs available.</p>
+{% endif %}
+
+ <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   <script>
+  // Parse the JSON data passed from Flask
+  const dates = JSON.parse('{{ dates | safe }}');
+  const bloodPressures = JSON.parse('{{ blood_pressures | safe }}');
+  const glucoses = JSON.parse('{{ glucoses | safe }}');
+  const bmis = JSON.parse('{{ bmis | safe }}');
+
+  // Common chart options for consistency
+  const commonOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
+    plugins: {
+      legend: {
+        labels: { font: { size: 14 }, color: '#333' },
+      },
+      tooltip: {
+        enabled: true,
+        backgroundColor: '#088178',
+        titleFont: { size: 16 },
+        bodyFont: { size: 14 },
+        cornerRadius: 6,
+      },
+    },
+    scales: {
+      x: {
+        ticks: { color: '#088178', font: { size: 13 } },
+        grid: { color: 'rgba(8, 129, 120, 0.1)' },
+      },
+      y: {
+        beginAtZero: true,
+        ticks: { color: '#088178', font: { size: 13 } },
+        grid: { color: 'rgba(8, 129, 120, 0.1)' },
+      },
+    },
+  };
+
+  
+</script>
+
+ <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

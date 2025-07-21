@@ -1,0 +1,43 @@
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Our Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <header class="chat-header">
+            <h1>Health Assistant</h1>
+            
+            <div class="dark-mode-toggle">
+  <label class="switch">
+    <input type="checkbox" id="darkToggle">
+    <span class="slider"></span>
+  </label>
+</div>
+            <div class="menu-container">
+                <span class="menu-dots" id="menu-dots">...</span>
+                <ul class="menu-options" id="menu-options"> 
+                    <li><a href="{{ url_for('homepage') }}" class="menu-link">Home Page</a></li>
+                    <li><a href="{{ url_for('health_logs') }}" class="menu-link">Logs</a></li>
+                    <li id="logout">Logout</li>
+                    <li onclick="downloadChat()">Download Chat</li>
+
+                </ul>
+            </div>
+        </header>
+
+        <div id="chat-box" class="chat-box">
+            <div class="chat-message date-message"></div>
+            <div class="chat-message bot-message">Hello! I'm here to help with your health check-in. Let's get started!</div>
+        </div>
+
+        <div class="chat-footer">
+            <input type="text" id="user-input" placeholder="Write a message...">
+            <button id="send-button">➤</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='chat.js') }}"></script>
+</body>

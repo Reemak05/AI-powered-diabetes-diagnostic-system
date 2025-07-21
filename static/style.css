@@ -1,0 +1,347 @@
+@import url('https://fonts.googleapis.com/css2?family=Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Spartan',sans-serif;
+}
+h1{
+    font-size: 50px;
+    line-height: 64px;
+    color:#222;
+}
+h2{
+    font-size: 46px;
+    line-height: 54px;
+    color:#222;
+}
+h4{
+    font-size: 20px;
+    color:#222;
+}
+h6{
+    font-size: 12px;
+    font-weight: 700;
+}
+p{
+    font-size: 16px;
+    color: #465b52;
+    margin: 15px 0 20px 0;
+}
+.section-p{
+    padding:40px 80px;
+}
+.section-m1{
+    padding:40px 0px;
+}
+button.off{
+    font-size: 14px;
+    font-weight: 600;
+    padding: 15px 30px;
+    color:#088178;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.2s;
+}
+body{
+    width:100%;
+}
+/* header */
+#header{
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 20px 80px;
+    background-color:white;
+    box-shadow: 0 5px 15 pz rgba(0,0,0, 0.05);
+    z-index: 999;
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+#navbar{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+}
+#navbar li{
+    list-style: none;
+    padding: 0 20px;
+    position: relative;
+}
+#navbar li a{
+    text-decoration: none;
+    font-size:16px;
+    font-weight:600 ;
+    color:#088178;
+    ;
+    transition: 0.3s ease;
+}
+.fa-user {
+    font-size: 20px;
+    color: #088178;
+}
+.fa-user:hover {
+    color:#ff6f61;
+}
+#navbar li a:hover{
+color:#ff6f61;
+}
+#navbar li a:hover,#navbar li a.active{
+    color:#ff6f61;
+}
+#navbar li a.active::after,#navbar li a:hover::after{
+content: "";
+width:30%;
+height:2px;
+background: #ff6f61;
+position:absolute;
+bottom:-4px;
+left:20px;
+}
+#menu{
+    display: none;
+    align-items: center;
+}
+#home{
+    background-image: url("img/back.jpg");
+    height: 90vh;
+    width:100%;
+    background-size: cover;
+    background-position: top 25% right 0;
+    padding: 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+#home h2{
+  color:#088178;  
+}
+#home h1{
+    color:#165BA4;  
+  }
+#home button{
+background-color: white;
+border: 2px solid #165BA4;
+color: #088178;
+padding: 14px 20px 14px 20px;
+background-repeat:no-repeat;
+cursor:pointer;
+font-weight:700;
+font-size: 15px;
+border-radius: 12px;
+}
+#home button:hover {
+    color:#088178;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+#close{
+display: none;
+  }
+  
+
+/*main*/
+main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background-color: #fff; /* White main area */
+}
+
+.content {
+    max-width: 50%;
+}
+
+.content h1 {
+    font-size: 48px;
+    color: #088178; 
+}
+
+.content p {
+    font-size: 18px;
+    color: #666; 
+}
+
+.start-chat {
+    background-color: #ff6f61;
+    color: white;
+    padding: 12px 24px; /* Increased padding for a balanced, comfortable click area */
+    border: 2px solid #ff6f61; /* Defined border for a polished look */
+    border-radius: 30px; /* Rounded corners for a smoother shape */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2); /* Depth effect for a subtle 3D appearance */
+    font-size: 18px; /* Larger font for readability */
+    font-weight: bold; /* Stronger emphasis on the text */
+    cursor: pointer; /* Interactive feel */
+    transition: all 0.3s ease-in-out; /* Smooth animation */
+}
+
+.start-chat:hover {
+    background-color: #088178; /* Changes color on hover */
+    border: 2px solid #088178 ;
+    color: #fff;
+    transform: scale(1.1); /* Slight enlargement for emphasis */
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced hover shadow */
+}
+
+.illustration img {
+    max-width: 100%;
+    height: auto;
+}
+
+/*diabetes*/
+#diabetes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 40px 80px;
+    margin-top: 50px;
+}
+
+.picture {
+    width: 30vw; /* Responsive width */
+    max-width: 350px; /* Prevents oversized cards */
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease-in-out;
+    text-align: center;
+}
+
+.picture:hover {
+    transform: scale(1.05); /* Slight enlargement */
+}
+
+.picture img {
+    width: 100%;
+    height: auto; /* Makes image height adapt */
+    object-fit: cover; /* Ensures image consistency */
+    border-bottom: 5px solid #088178;
+    aspect-ratio: 4 / 3; /* Or 16 / 9 depending on what you want */
+}
+
+.text-container {
+    padding: 15px;
+}
+
+.text-container h2 {
+    color: #088178;
+    font-weight: 900;
+    font-size: 2vw; /* Scales with screen size */
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+/*footer*/
+footer{
+    margin-top: 70px;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-image: url("img/footer.png");
+}
+footer .col{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+footer .logo{
+    width:90px;
+     height:80px;
+margin-bottom: 30px;
+}
+footer h4{
+    font-size: 16px;
+    padding-bottom: 20px;
+}
+footer p{
+    font-size: 13px;
+   margin: 0 0 8px 0;
+   color:#222
+}
+footer a{
+    font-size: 13px;
+    text-decoration: none;
+    color:#222;
+    margin-bottom: 10px;
+}
+
+footer #follow i:hover, footer a:hover{
+color:#cee1e0
+}
+footer .copyw{
+width: 100%;
+text-align: center;
+}
+
+/*menu*/
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    position: relative;
+}
+
+#menu-icon {
+    display: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: #333;
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    z-index: 1000;
+}
+
+@media (max-width: 768px) {
+    #navbar {
+        display: none;
+        flex-direction: column;
+        background: #fff;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        width: 200px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        z-index: 999;
+    }
+
+    #navbar.show {
+        display: flex;
+    }
+
+    #menu-icon {
+        display: block;
+    }
+
+    #navbar li {
+        padding: 10px;
+        text-align: right;
+    }
+
+    #diabetes {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .picture {
+        width: 90vw; /* use most of screen width */
+        max-width: 100%;
+    }
+
+    .text-container h2 {
+        font-size: 6vw; /* more readable on small screens */
+    }
+
+}
